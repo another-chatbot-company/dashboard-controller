@@ -7,6 +7,7 @@ const Freshdesk = require('freshdesk-api');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const config = require('./config');
+const mongoose = require('mongoose');
 
 /*************************************
  *              INIT
@@ -14,6 +15,7 @@ const config = require('./config');
 const routesRootDir = './api/routes/'
 const app = express();
 const freshdesk = new Freshdesk(stringConnection, apiKey);
+mongoose.connect('')
 
 /*************************************
  *              ROTAS
