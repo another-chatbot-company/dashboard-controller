@@ -1,0 +1,8 @@
+{
+   "env": {
+       "MONGO_ATLAS_USER": "senai-projeto-fepweb",
+       "MONGO_ATLAS_PASSWORD": "MTfH4rc9HX9fC8To",
+       "FRESHDESK_URL" : "https://anotherchatbotcompany.freshdesk.com",
+       "FRESHDESK_API_KEY" : "tEPG32eaUeGJDabC8U79"
+   }
+}

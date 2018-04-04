@@ -4,11 +4,12 @@
 const express = require('express');
 const Freshdesk = require('freshdesk-api');
 const config = require('../../config');
+const env = require('dotEnv').config();
 /*************************************
  *              INIT
  *************************************/
 const router = express.Router();
-const freshdesk = new Freshdesk(stringConnection, apiKey);
+const freshdesk = new Freshdesk(config.freshDeskURL, config.freshdeskAPIKey);
 /*************************************
  *              GET
  *************************************/

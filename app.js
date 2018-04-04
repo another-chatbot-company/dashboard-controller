@@ -8,14 +8,16 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const config = require('./config');
 const mongoose = require('mongoose');
-
+const env = require('dotEnv').config();
 /*************************************
  *              INIT
  *************************************/
 const routesRootDir = './api/routes/'
 const app = express();
-const freshdesk = new Freshdesk(stringConnection, apiKey);
-mongoose.connect('')
+const freshdesk = new Freshdesk(config.freshDeskURL, config.freshdeskAPIKey);
+mongoose.connect(config.mongoDBURL);
+
+
 
 /*************************************
  *              ROTAS
