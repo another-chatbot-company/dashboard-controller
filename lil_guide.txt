@@ -1,0 +1,20 @@
+	SOURCE			VALUE
+	Email			1
+	Portal			2
+	Phone			3
+	Chat			7
+	Mobihelp		8
+	Feedback Widget	9
+	Outbound Email	10
+
+	STATUS		VALUE
+	Open		2
+	Pending		3
+	Resolved	4
+	Closed		5
+	
+	PRIORITY	VALUE
+	Low			1
+	Medium		2
+	High		3
+	Urgent		4

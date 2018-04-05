@@ -17,16 +17,12 @@ const app = express();
 const freshdesk = new Freshdesk(config.freshDeskURL, config.freshdeskAPIKey);
 mongoose.connect(config.mongoDBURL);
 
-
-
 /*************************************
  *              ROTAS
  *************************************/
 const contactsRoutes = require(routesRootDir + 'contacts.js');
 const ticketsRoutes = require(routesRootDir + 'tickets.js');
 
-app.use('/tickets', ticketsRoutes);
-app.use('/contacts', contactsRoutes);
 /*************************************
  *           UTILIDADES
  *************************************/
@@ -36,6 +32,20 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 // Definindo qual o Content-Type esperado
 app.use(bodyParser.json());
+
+app.use('/tickets', ticketsRoutes);
+app.use('/contacts', contactsRoutes);
+
+// Definindo headers para problemas de CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    if (req.method === 'OPTIONS') {
+        req.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+});
 
 /*************************************
  *       FUNCOES DE FALLBACK

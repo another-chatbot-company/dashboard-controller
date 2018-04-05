@@ -5,6 +5,8 @@ const express = require('express');
 const Freshdesk = require('freshdesk-api');
 const config = require('../../config');
 const env = require('dotEnv').config();
+const Ticket = require('../models/Ticket.js');
+const mongoose = require('mongoose');
 /*************************************
  *              INIT
  *************************************/
@@ -45,21 +47,24 @@ router.get('/:ticketId', (req, res, next) => {
  *************************************/
 //Criar um Ticket
 router.post('/', (req, res, next) => {
-    freshdesk.createTicket({
-        name: 'Elivelton ticket',
-        email: 'test@test.com',
+    let ticket = {
+        name: 'Mongoose ticket',
+        email: 'anotherchatbotco@test.com',
         subject: 'Criando Ticket com o Node.JS',
-        description: 'Por favor, providenciar um chatbot URGENET',
+        description: 'Ticket a ser gravado no Mongo Atlas!',
         status: 2,
         priority: 4
-    }, function (err, data) {
-        console.log(err || data)
+    };
 
-        res.status(200).json({
-            message: 'Ticket criado',
-            id: data.id
-        });
-    })
+    // Gravando no Freshdesk
+    // freshdesk.createTicket(ticket, function (err, data) {
+    //     console.log(err || data)
+
+    //     res.status(200).json({
+    //         message: 'Ticket criado',
+    //         id: data.id
+    //     });
+    // });
 
 });
 
@@ -79,6 +84,31 @@ router.post('/:ticketId', (req, res, next) => {
     }
 }
 );
+
+// ENDPOINT para gravação do ticket
+router.post('/save/:ticketId', (req, res, next) => {
+    console.log("Entrou no save");
+    let ticketId = req.params.ticketId;
+    console.log(ticketId);
+    // Gravando no Atlas
+    let ticketToAtlas = new Ticket({
+        _id: new mongoose.Types.ObjectId,
+        freshdeskCode: ticketId,
+        description: req.body.description_text,
+        createdAt: req.body.created_at,
+        severity: req.body.priority,
+        status: req.body.status,
+        rating: -1,
+        user: {
+            _id: new mongoose.Types.ObjectId,
+            name: req.body.requester_id,
+            isChatbotEnabled : false
+        },
+        agent: null,
+        company: req.body.company_id,
+        channel: req.body.source
+    });
+});
 
 /*************************************
  *              PATCH
