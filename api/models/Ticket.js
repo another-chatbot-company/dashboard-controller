@@ -1,28 +1,5 @@
 const mongoose = require('mongoose');
 
-const companySchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    isChatbotEnabled: {
-        type: Boolean,
-        required: true
-    }
-});
-
-const userSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        lowercase: true
-    }
-});
-
 const ticketSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 
@@ -52,16 +29,18 @@ const ticketSchema = mongoose.Schema({
         max: 5
     },
     user: {
-        type: userSchema,
+        type: Number,
+        ref: 'User',
         required: true
     },
     agent: {
         type: String,
-        required: true
+        //voltar o required
     },
     company: {
-        type: companySchema,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+         //voltar o required
     },
     channel: {
         type: String,

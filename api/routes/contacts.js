@@ -58,7 +58,8 @@ router.get('/:contactId', (req, res, next) => {
 /*************************************
  *              PATCH
  *************************************/
-router.get('/:contactId', (req, res, next) => {
+// Precisa implementar!
+router.patch('/:contactId', (req, res, next) => {
     var contactId = req.params.contactId
     freshdesk.getContact(contactId, function (err, data, extra) {
         console.log(err || data);

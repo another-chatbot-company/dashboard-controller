@@ -22,6 +22,7 @@ mongoose.connect(config.mongoDBURL);
  *************************************/
 const contactsRoutes = require(routesRootDir + 'contacts.js');
 const ticketsRoutes = require(routesRootDir + 'tickets.js');
+const databaseRoutes = require(routesRootDir + 'database.js');
 
 /*************************************
  *           UTILIDADES
@@ -35,6 +36,7 @@ app.use(bodyParser.json());
 
 app.use('/tickets', ticketsRoutes);
 app.use('/contacts', contactsRoutes);
+app.use('/database', databaseRoutes);
 
 // Definindo headers para problemas de CORS
 app.use((req, res, next) => {
