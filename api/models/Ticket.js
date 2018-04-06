@@ -3,20 +3,16 @@ const mongoose = require('mongoose');
 const ticketSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 
-    freshdeskCode: {
+    freshdesk_code: {
         type: String,
         required: true
     },
-    description: {
-        type: String,
-        required: true
-    },
-    createdAt: {
+    creation_date: {
         type: Date,
         required: true
     },
-    severity: {
-        type: String,
+    priority: {
+        type: Number,
         required: true
     },
     status: {
@@ -29,18 +25,29 @@ const ticketSchema = mongoose.Schema({
         max: 5
     },
     user: {
-        type: Number,
-        ref: 'User',
-        required: true
+        name: {
+            type: String
+        },
+        email: {
+            type: String
+        }
     },
-    agent: {
-        type: String,
-        //voltar o required
-    },
+    // agent: {
+    //     id: {
+    //         type: Number,
+    //         required: true
+    //     },
+    //     name: {
+    //         type: String
+    //     },
+    //     email: {
+    //         type: String
+    //     }
+    // },
     company: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Company',
-         //voltar o required
+        name: {
+            type: String
+        },
     },
     channel: {
         type: String,

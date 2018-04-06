@@ -1,20 +1,112 @@
-	SOURCE			VALUE
-	Email			1
-	Portal			2
-	Phone			3
-	Chat			7
-	Mobihelp		8
-	Feedback Widget	9
-	Outbound Email	10
+========================================================================
+Códigos do Freshdesk
 
-	STATUS		VALUE
-	Open		2
-	Pending		3
-	Resolved	4
-	Closed		5
-	
-	PRIORITY	VALUE
-	Low			1
-	Medium		2
-	High		3
-	Urgent		4
+SOURCE			VALUE
+Email			1
+Portal			2
+Phone			3
+Chat			7
+Mobihelp		8
+Feedback Widget	9
+Outbound Email	10
+
+STATUS		VALUE
+Open		2
+Pending		3
+Resolved	4
+Closed		5
+
+PRIORITY	VALUE
+Low			1
+Medium		2
+High		3
+Urgent		4
+========================================================================
+Campos enviados pelo webhook
+
+Ticket ID  {{ticket.id}}
+Subject  {{ticket.subject}}
+Description  {{ticket.description}}
+Ticket URL  {{ticket.url}}
+Product specific ticket URL  {{ticket.portal_url}}
+Due by time  {{ticket.due_by_time}}
+Tags  {{ticket.tags}}
+Last public comment  {{ticket.latest_public_comment}}
+Last private comment  {{ticket.latest_private_comment}}
+Internal Group name  {{ticket.group.name}}
+Internal Agent name  {{ticket.agent.name}}
+Internal Agent email  {{ticket.agent.email}}
+Satisfaction survey  {{ticket.satisfaction_survey}}
+Status  {{ticket.status}}
+Priority  {{ticket.priority}}
+Source  {{ticket.source}}
+Ticket type  {{ticket.ticket_type}}
+Requester name  {{ticket.requester.name}}
+Requester first name  {{ticket.requester.firstname}}
+Requester last name  {{ticket.requester.lastname}}
+Requester email  {{ticket.from_email}}
+Contact Primary email  {{ticket.requester.phone}}
+Requester address  {{ticket.requester.address}}
+Company name  {{ticket.company.name}}
+Company description  {{ticket.company.description}}
+Company note  {{ticket.company.note}}
+Company domains  {{ticket.company.domains}}
+Company Health score  {{ticket.company.health_score}}
+Company Account tier  {{ticket.company.account_tier}}
+Company Renewal date  {{ticket.company.renewal_date}}
+Company Industry  {{ticket.company.industry}}
+Helpdesk name  {{helpdesk_name}}
+Product portal name  {{ticket.portal_name}}
+Product description  {{ticket.product_description}}
+Triggered Event  {{triggered_event}}
+
+====================================================================
+EXEMPLO DE REQUISIÇÃO
+
+{
+	"ticket": {
+		"id": 5,
+		"subject": "O que é Plataforma Fepweb?",
+		"description": "Bom dia, gostaria de saber sobre esse produto.",
+		"url": "",
+		"portal_url": "",
+		"due_by_time": "",
+		"tags": "",
+		"latest_public_comment": "",
+		"latest_private_comment": "",
+		"group" : {
+			"name": ""
+		},
+		"agent":{
+			"name": "",
+			"email": ""
+		},
+		"satisfaction_survey": "",
+		"status": 2,
+		"priority": 1,
+		"source": 1,
+		"ticket_type": "",
+		"requester": {
+			"name": "Cesar Requester",
+			"firstname": "Cesar",
+			"lastname": "Requester",
+			"from_email": "cesar.requester@email.com",
+			"phone": "+551197651324",
+			"address": "R. Minha, 123"
+		},
+		"company": {
+			"name": "Empresa minha",
+			"description": "",
+			"note": "",
+			"domains": "",
+			"health_score": "",
+			"account_tier": "",
+			"renewal_date": "",
+			"industry": ""
+		},
+		"portal_name": "",
+		"product_description": ""
+	},
+	"helpdesk_name": "",
+	"triggered_event": ""
+}

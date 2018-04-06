@@ -17,29 +17,40 @@ const router = express.Router();
 
 // ENDPOINT para gravação do ticket
 router.post('/', (req, res, next) => {
-    console.log("Entrou no post");
+    console.log("Entrou no /test via POST");
+    let ticket = req.body.ticket;
+    let requester = ticket.requester;
+    let company = ticket.company;
+
+    console.log('Logando TICKET');
+    console.log(ticket);
     // Gravando no Atlas
-    const ticket = new Ticket({
+    const ticketEntity = new Ticket({
         _id: new mongoose.Types.ObjectId(),
-        freshdeskCode: req.params.ticketId,
-        description: req.body.description_text,
-        createdAt: req.body.created_at,
-        severity: req.body.priority,
-        status: req.body.status,
-        rating: -1,
-        user: req.body.requester_id,
-        agent: req.body.responder_id,
-        company: req.body.company_id,
-        channel: req.body.source
+        freshdesk_code: ticket.id,
+        creation_date: new Date(),
+        priority: ticket.priority,
+        status: ticket.status,
+        rating: null,
+        user: {
+            name: requester.name,
+            email: requester.from_email
+        },
+        company: {
+            name: company.name
+        },
+        channel: ticket.source
     });
 
-    ticket
+    ticketEntity
         .save()
         .then(result => {
+            console.log('POST no /test retornou com sucesso!');
             console.log(result);
             res.status(201).json(result);
         })
         .catch(err => {
+            console.log('POST no /test retornou com erro!');
             console.log(err);
             res.status(500).json(err);
         });
@@ -48,7 +59,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
     console.log("Entrou no get");
-    
+
     Ticket.find().exec().then(docs => {
         console.log(docs);
         res.status(200).json(docs);
@@ -61,7 +72,7 @@ router.get('/', (req, res, next) => {
 router.get('/:ticketId', (req, res, next) => {
     let ticketId = req.params.ticketId;
     console.log("Entrou no get");
-    
+
     Ticket.findById(ticketId).exec().then(docs => {
         console.log(docs);
         res.status(200).json(docs);
